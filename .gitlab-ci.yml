@@ -1,0 +1,9 @@
+stages:
+  - docker-build
+
+docker-build:
+  stage: docker-build
+  tags:
+    - privileged
+  image: registry.networkteam.com/networkteam/kubernetes-deploy:mysql-database
+  script: command build

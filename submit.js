@@ -18,11 +18,21 @@ const widths = String(argv.w || '1280').split(/\s*,\s*/).map(s => parseInt(s));
 const spectreBaseUrl = argv.spectre || 'http://localhost:3000';
 const baseline = argv.baseline || false;
 
+let puppeteerOpts = {};
+if (process.env['PUPPETEER_EXECUTABLE']) {
+  puppeteerOpts.executablePath = process.env['PUPPETEER_EXECUTABLE'];
+}
+// See https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-fails-due-to-sandbox-issues
+if (process.env['PUPPETEER_NO_SANDBOX']) {
+  puppeteerOpts.args = ['--no-sandbox', '--disable-setuid-sandbox'];
+}
+
+
 let browser, page;
 
 (async() => {
 
-  browser = await puppeteer.launch();
+  browser = await puppeteer.launch(puppeteerOpts);
   page = await browser.newPage();
 
   console.log('Launched browser');

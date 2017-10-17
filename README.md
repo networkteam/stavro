@@ -23,3 +23,11 @@ Install dependencies (includes a headless Chromium):
 Submit and render a list of URLs in `urls.txt` in 3 different width in Suite _Relaunch_:
 
     cat urls.txt | node submit.js -s Relaunch -w 480,1024,1280 --spectre https://spectre.example.com example.com
+
+## Running in Docker
+
+    docker run -it --name stavro networkteam/stavro -- /bin/bash
+    # Run commands in to submit URLs
+    
+Detach the running container with `Ctrl+p`, `Ctrl+q`. It can be re-attached with
+`docker attach stavro` and will exist in stopped state after finishing.
